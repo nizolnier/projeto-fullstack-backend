@@ -23,12 +23,8 @@ class Setup extends BaseDatabase {
                 file VARCHAR(500) NOT NULL,
                 collection VARCHAR(255) NOT NULL,
                 author_id VARCHAR(255) NOT NULL,
-                author_username VARCHAR(255) NOT NULL,
-                author_profile_picture VARCHAR(500) NOT NULL,
-                FOREIGN KEY(author_id) REFERENCES Users_Labegram(id),
-                FOREIGN KEY(author_username) REFERENCES Users_Labegram(id),
-                FOREIGN KEY(author_profile_picture) REFERENCES Users_Labegram(id)
-            );
+                FOREIGN KEY(author_id) REFERENCES Users_Labegram(id)
+              );
         `)
 
             await BaseDatabase.connection.raw(`
