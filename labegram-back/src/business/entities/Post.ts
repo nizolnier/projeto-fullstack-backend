@@ -28,5 +28,5 @@ export interface PostInputDTO {
 export interface Tag {
     id: string;
     authorId: string;
-    tags: string;
+    tags: string[];
 }

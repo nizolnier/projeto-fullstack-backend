@@ -25,7 +25,7 @@ export class PostController {
 
             await postBusiness.createPost(input)
 
-            res.status(201).send("Band registered with success")
+            res.status(201).send("Post created with success")
         } catch (error) {
             res
                 .status(error.statusCode || 400)
