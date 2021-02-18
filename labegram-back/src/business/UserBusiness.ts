@@ -51,6 +51,13 @@ export class UserBusiness {
 
     async getUserByEmail(user: LoginInputDTO) {
         try {
+            if(!user.email || !user.password){
+                throw new CustomError(406, "Please provide  an 'email' and a 'password'")
+            }
+
+            this.verifier.verifyEmail(user.email)
+            this.verifier.verifyPassword(user.password)
+
             const userFromDB = await this.userDatabase.selectUserByEmail(user.email)
 
             if (!userFromDB) {

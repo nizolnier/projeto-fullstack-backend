@@ -3,9 +3,9 @@
    "version": "1.0.0",
    "description": "",
    "scripts": {
-      "start": "tsc && node ./build/src/index.js",
+      "start": "tsc && node ./build/index.js",
       "dev": "ts-node-dev ./src/index.ts",
-      "setup": "tsc && node ./build/src/setup.js",
+      "setup": "tsc && node ./build/setup.js",
       "test": "clear && tsc && echo \"Running tests...\" && jest"
    },
    "author": "Nicole Zolnier",
@@ -13,6 +13,7 @@
    "dependencies": {
       "bcryptjs": "^2.4.3",
       "cors": "^2.8.5",
+      "dayjs": "^1.10.4",
       "dotenv": "^8.2.0",
       "express": "^4.17.1",
       "jest": "^26.6.3",
