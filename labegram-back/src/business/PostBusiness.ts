@@ -1,5 +1,5 @@
 import { PostDatabase } from "../data/PostDatabase"
-import { Post, PostInputDTO, Tag } from "./entities/Post"
+import { Post, PostFinal, PostIdInputDTO, PostInputDTO, PostSample, Tag } from "./entities/Post"
 import { AuthenticationData } from "./entities/User"
 import { CustomError } from "./error/CustomError"
 import { Authenticator } from "./services/Authenticator"
@@ -25,6 +25,10 @@ export class PostBusiness {
 
             const tokenData: AuthenticationData = this.authenticator.getData(input.token)
 
+            if (!tokenData) {
+                throw new CustomError(422, "Missing properties")
+            }
+
             const idPost: string = this.idGenerator.generate()
             const idTag: string = this.idGenerator.generate()
 
@@ -45,6 +49,70 @@ export class PostBusiness {
                 tokenData.id
             )
             await this.postDatabase.insertPost(newPost, newTag)
+        } catch (error) {
+            throw new CustomError(error.statusCode, error.message);
+        }
+
+    }
+
+    public getAllPosts = async (token: string): Promise<PostFinal[]> => {
+
+        try {
+
+            if (!token) {
+                throw new CustomError(422, "Missing properties")
+            }
+
+            const tokenData: AuthenticationData = this.authenticator.getData(token)
+
+            if (!tokenData) {
+                throw new CustomError(422, "Missing properties")
+            }
+
+            const queryResult = await this.postDatabase.selectAll()
+
+            if (!queryResult) {
+                throw new CustomError(404, "Not Found");
+            }
+
+            const result = queryResult.map((item: PostSample) => {
+                return {id: item.id, 
+                    subtitle: item.subtitle, 
+                    file: item.file, 
+                    tags: item.tags, 
+                    authorId: item.authorId, 
+                    nickname: item.nickname, 
+                    profilePicture: item.profilePicture}
+            })
+
+
+            return result
+        } catch (error) {
+            throw new CustomError(error.statusCode, error.message);
+        }
+
+    }
+
+    public getPostById = async (input: PostIdInputDTO): Promise<PostFinal> => {
+        try {
+
+            if (!input.token || !input.id) {
+                throw new CustomError(422, "Missing properties")
+            }
+
+            const tokenData: AuthenticationData = this.authenticator.getData(input.token)
+
+            if (!tokenData) {
+                throw new CustomError(422, "Missing properties")
+            }
+
+            const queryResult = await this.postDatabase.selectById(input.id)
+
+            if (!queryResult) {
+                throw new CustomError(404, "Not Found");
+            }
+
+            return queryResult
         } catch (error) {
             throw new CustomError(error.statusCode, error.message);
         }
