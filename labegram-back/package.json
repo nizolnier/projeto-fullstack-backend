@@ -6,7 +6,7 @@
       "start": "tsc && node ./build/index.js",
       "dev": "ts-node-dev ./src/index.ts",
       "setup": "tsc && node ./build/setup.js",
-      "test": "clear && tsc && echo \"Running tests...\" && jest"
+      "test": "clear && echo \"Running tests...\" && jest"
    },
    "author": "Nicole Zolnier",
    "license": "ISC",
