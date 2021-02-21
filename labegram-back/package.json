@@ -3,9 +3,9 @@
    "version": "1.0.0",
    "description": "",
    "scripts": {
-      "start": "tsc && node ./build/index.js",
+      "start": "tsc && node ./build/src/index.js",
       "dev": "ts-node-dev ./src/index.ts",
-      "setup": "tsc && node ./build/setup.js",
+      "setup": "tsc && node ./build/src/setup.js",
       "test": "clear && echo \"Running tests...\" && jest"
    },
    "author": "Nicole Zolnier",
